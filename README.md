@@ -1,4 +1,4 @@
-# 🛍️ Proyecto Noticias - Ver noticias
+# 📰  Proyecto Noticias - Ver noticias
 ## Estado: 🚧 En Desarrollo
 
 ## 📌 Descripción  
