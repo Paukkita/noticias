@@ -1,7 +1,18 @@
 # 📰  Proyecto Noticias - Ver noticias
 ## Estado: 🚧 En Desarrollo
 
-## 📌 Descripción  
+## Enlace al Proyecto
+
+Puedes acceder al proyecto en línea en el siguiente enlace:
+
+[Noticias Pau - Proyecto en Producción](https://noticias-production-d414.up.railway.app)
+
+## Credenciales de Acceso
+
+### Cuenta de Administrador:
+
+- **Email:** [Pau@gmail.comm](mailto:Pau@gmail.comm)
+- **Contraseña:** `1234`
 Este proyecto es una plataforma de noticias donde los periodistas pueden crear, editar y eliminar publicaciones, gestionar géneros y ver qué lectores han dado "me gusta". Los lectores pueden registrarse, explorar noticias, dar "me gusta" y filtrar contenido por género, además de gestionar su perfil personal.
 
 Actualmente en desarrollo, falta mejorar la estética y corregir algunos errores del programa.
