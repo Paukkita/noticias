@@ -11,7 +11,7 @@ Puedes acceder al proyecto en línea en el siguiente enlace:
 
 ### Cuenta de Administrador:
 
-- **Email:** [Pau@gmail.comm](mailto:Pau@gmail.comm)
+- **Email:** [Pau@gmail.comm](mailto:Pau@gmail.com)
 - **Contraseña:** `1234`
 
 ## Descripción
