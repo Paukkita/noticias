@@ -54,7 +54,8 @@ Si los datos proporcionados durante el registro o el login no son correctos, se 
 ## 📰 Vista de Noticias sin Iniciar Sesión
 Los usuarios no autenticados pueden ver una lista de noticias, pero tienen un acceso limitado en comparación con los usuarios registrados.
 
-![Vista de noticias sin loggear](https://github.com/user-attachments/assets/1a51587e-5ad1-428c-8fc5-d97c467bb7d4)
+![Vista de noticias sin loggear](https://github.com/user-attachments/assets/4c33973b-62e1-44cb-9ee5-0a9736b39857)
+
 
 ## 📝 Vista de Noticias como Admin
 Los administradores (periodistas) tienen un acceso completo para gestionar las noticias. Pueden ver todas las publicaciones creadas y realizar acciones como crear, editar o eliminar noticias.
