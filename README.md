@@ -1,5 +1,5 @@
 # 📰  Proyecto Noticias - Ver noticias
-## Estado: 🚧 En Desarrollo
+## Estado: 🚧 En Desarrollo (La barra superior se mantendrá mientras esté en desarrollo para facilitar testing)
 
 ## Enlace al Proyecto
 
