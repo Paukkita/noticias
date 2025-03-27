@@ -61,6 +61,12 @@ Los administradores (periodistas) tienen un acceso completo para gestionar las n
 
 ![Vista de noticias como admin](https://github.com/user-attachments/assets/9bb744b9-56d5-4b1d-86ad-e4e0ba304a4d)
 
+## 📝 Vista de Noticias como Usuario
+Los usuarios tienen un acceso reducido para observar las noticais. Pueden ver todas las publicaciones creadas y dar me gusta o quitarlos.
+
+![Vista de noticia como usuario](https://github.com/user-attachments/assets/971ddd35-ed17-4e29-833e-04795a785fd0)
+
+
 ## 👍 Vista de Usuario con "Me Gusta"
 Los usuarios pueden interactuar con las noticias dando "me gusta" a sus publicaciones favoritas. Esta vista muestra las noticias que un usuario ha marcado como favoritas.
 
