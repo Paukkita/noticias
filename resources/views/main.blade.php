@@ -101,10 +101,14 @@
         {{$noticias->links()}}
     </div>
 
-    <!-- Enlace para ver todos los usuarios -->
-    <div class="text-center mt-4">
-        <a href="{{ route('users.show') }}" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
-            Ver todos los lectores
-        </a>
-    </div>    
+    @if(Auth::check() && Auth::user()->is_admin ){
+        <!-- Enlace para ver todos los usuarios -->
+        <div class="text-center mt-4">
+            <a href="{{ route('users.show') }}" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                Ver todos los lectores
+            </a>
+        </div>    
+    }
+    @endif
+    
 @endsection

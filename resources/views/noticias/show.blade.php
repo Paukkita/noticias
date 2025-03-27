@@ -23,7 +23,9 @@
             @endif
         </div>
 
-        <!-- Formulario de eliminación -->
+        @if(Auth::check() && Auth::user()->is_admin )
+        <div class="mb-4">
+            <!-- Formulario de eliminación -->
         <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="px-6 py-4 text-center">
             @csrf
             @method('DELETE')
@@ -34,7 +36,12 @@
         <div class="card-footer text-center px-6 py-4">
             <a href="{{ route('noticias.edit.get', $noticia->id) }}" class="btn btn-secondary py-3 px-6 border text-lg rounded mt-4">Editar noticia</a>
         </div>
-
+        </div>
+    @else
+        <div class="mb-4">
+            <p class="text-center"> No puedes editar noticias porque no eres admin</p>
+        </div>
+    @endif
         <!-- Botón de volver -->
         <div class="card-footer text-center px-6 py-4">
             <a href="{{ route('main') }}" class="btn btn-secondary py-3 px-6 border text-lg rounded mt-4">Volver</a>
