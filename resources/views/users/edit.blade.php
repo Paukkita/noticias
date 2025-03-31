@@ -40,6 +40,11 @@
             <input type="email" id="email" value="{{ old('email', $user->email) }}" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
 
+        <!-- Campo para la contraseña del usuario -->
+        <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
         <!-- Botón para enviar el formulario -->
         <div class="flex items-center justify-between">
             <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">

@@ -1,10 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <h1 class="text-5xl font-bold text-center font-poppins">
+        Noticias
+    </h1>
     <!-- Barra superior con el nombre del usuario loggeado -->
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-center">Noticias</h2>
-        <div class="text-right">
+    <div class="flex justify-end items-center mb-6">
+        <div class="text-right align-items-right">
             @auth <!-- Si el usuario está autenticado -->
                 <p class="text-sm">Bienvenido, {{ Auth::user()->name }}  
                     <!-- Enlace para cerrar sesión -->
@@ -46,8 +48,44 @@
                 {{-- Función de dar like o quitarlo --}}
                 <div class="flex space-x-4">
                     @auth <!-- Si el usuario está autenticado -->
+                    <script>
+                        function confirmarLike(form) {
+                            event.preventDefault();
+                            Swal.fire({
+                                title: "¿Te gusta esta noticia?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Sí",
+                                cancelButtonText: "No"
+                                
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    form.submit();
+                                }
+                            });
+                        }
+                        
+                        function confirmarUnlike(form) {
+                            event.preventDefault();
+                            Swal.fire({
+                                title: "¿Quieres quitar el Like?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#d33",
+                                cancelButtonColor: "#3085d6",
+                                confirmButtonText: "Sí",
+                                cancelButtonText: "No"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    form.submit();
+                                }
+                            });
+                        }
+                    </script>
                         @if($noticia->users->contains(Auth::user()->id))
-                            <form action="{{ route('noticias.unlike', $noticia->id) }}" method="POST">
+                            <form action="{{ route('noticias.unlike', $noticia->id) }}" method="POST" onsubmit="confirmarUnlike(this)">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-full py-3 px-6 border bg-red-500 text-white rounded mt-4 hover:bg-red-600">
@@ -55,9 +93,9 @@
                                 </button>
                             </form>
                         @else
-                            <form action="{{ route('noticias.like', $noticia->id) }}" method="POST">
+                            <form action="{{ route('noticias.like', $noticia->id) }}" method="POST" onsubmit="confirmarLike(this)">
                                 @csrf
-                                <button type="submit" class="w-full py-3 px-6 border bg-blue-500 text-white rounded mt-4 hover:bg-blue-600">
+                                <button type="submit"  class="w-full py-3 px-6 border bg-blue-500 text-white rounded mt-4 hover:bg-blue-600">
                                     👍 Me gusta
                                 </button>
                             </form>

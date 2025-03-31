@@ -22,26 +22,54 @@
                 </div>
             @endif
         </div>
-
+        <script>
+            function confirmarEliminar(form) {
+                event.preventDefault();
+                Swal.fire({
+                    title: "¿Estás seguro de eliminar esta noticia?",
+                    text: "¡Esta acción no se puede deshacer!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Sí, eliminar",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();  // Envía el formulario si el usuario confirma
+                    }
+                });
+            }
+        </script>
+        
         @can('eliminar noticias')
-        <div class="mb-4">
-            <!-- Formulario de eliminación -->
-        <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="px-6 py-4 text-center">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="w-full py-3 px-6 border text-lg rounded mt-4">Eliminar Noticia</button>
-        </form>
-        </div>
+            <div class="mb-2">
+                <!-- Formulario de eliminación con confirmación de SweetAlert -->
+                <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="px-6 py-4 text-center" onsubmit="confirmarEliminar(this)">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-full py-3 px-6 border text-lg rounded mt-4 bg-white hover:bg-red-300">
+                        Eliminar Noticia
+                    </button>
+                </form>
+            </div>
         @endcan
+        
+    
         @can('editar noticias')
-        <!-- Botón de editar -->
-        <div class="card-footer text-center px-6 py-4">
-            <a href="{{ route('noticias.edit.get', $noticia->id) }}" class="btn btn-secondary py-3 px-6 border text-lg rounded mt-4">Editar noticia</a>
-        </div>
+            <!-- Botón de editar -->
+            <div class="card-footer text-center px-6 py-4 border mx-[20px] mb-2 hover:bg-yellow-300">
+                <a href="{{ route('noticias.edit.get', $noticia->id) }}" class="w-full py-3 px-6  text-lg rounded mt-4   ">
+                    Editar noticia
+                </a>
+            </div>
         @endcan
+        
         <!-- Botón de volver -->
-        <div class="card-footer text-center px-6 py-4">
-            <a href="{{ route('main') }}" class="btn btn-secondary py-3 px-6 border text-lg rounded mt-4">Volver</a>
+        <div class="card-footer text-center px-6 py-4 border mx-[20px] mb-2 hover:bg-blue-300" >
+            <a href="{{ route('main') }}" class="w-full py-3 px-6 text-lg rounded mt-4 ">
+                Volver
+            </a>
         </div>
     </div>
 </div>

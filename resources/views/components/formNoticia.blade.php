@@ -53,4 +53,10 @@
             Publicar Noticia
         </button>
     </div>
+    
 </form>
+<br>
+<!-- Boton para volver atrás -->
+<button onclick="window.location.href='{{ route('main') }}'" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+    Volver atrás
+</button>

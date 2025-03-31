@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Masmerise\Toaster\Toaster;
 
 class NoticiaController extends Controller
 
@@ -18,6 +19,7 @@ class NoticiaController extends Controller
     // Función para mostrar las noticias
     public function index()
     {
+        Toaster::warning('Has quitado el like de la noticia :('); // 👈
         if (Auth::check()) {
             // Autorización manual para ver las noticias
             $this->authorize('viewAny', Noticia::class);
@@ -127,13 +129,19 @@ class NoticiaController extends Controller
         if (!$noticia->users()->where('user_id', Auth::id())->exists()) {
             $noticia->users()->attach(Auth::id());
         }
-        return redirect()->route('main');
-    }
+        Toaster::success('Has dado like a la noticia!'); // 👈
 
-    // Función para quitar el like de una noticia
+        return redirect()->back();
+    }
+    
+    // Función para quitar like a una noticia
     public function unlike(Noticia $noticia)
     {
         $noticia->users()->detach(Auth::id());
-        return redirect()->route('main');
+    
+        Toaster::warning('Has quitado el like de la noticia :('); 
+        
+        return redirect()->back();
     }
+    
 }

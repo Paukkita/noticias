@@ -8,34 +8,39 @@
     <script src="https://cdn.tailwindcss.com"></script>
     {{-- <link rel="stylesheet" href="/tutorial/blog/resources/css/app.css"> --}}
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
-    @stack('css')
+    {{--  @stack('css') --}}
+    <script type="text/javascript" src="{{ asset('js/app.js') }}" defer> </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Importar Poppins desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-900">
     <header class="bg-gray-800 text-white p-4 flex justify-between items-center shadow-2xl">
-        <h1 class="text-lg font-bold">Bienvenido a Pau Noticias</h1>
+        <h1 class="text-lg font-bold">🐻 Bienvenido a Pau Noticias 🐻</h1>
         <nav>
             <ul class="flex space-x-4">
                 @auth
                 @if (Auth::user()->hasRole('admin'))
-                    <li> <h2 class=" text-medium"> Administrador : </h2></li>
-                    <li><a href="{{ route('noticias.create.get') }}" class="hover:text-gray-400">Crear Noticia</a></li>
-                    <li><a href="{{ route('noticias.edit.get','2') }}" class="hover:text-gray-400">Editar Noticia</a></li>
-                    <li><a href="{{ route('users.show') }}" class="hover:text-gray-400">Ver Usuarios</a></li>
-                @else 
-                    <li> <h2> Usuario : </h2></li>
+                    <li><h2 class="text-medium">Administrador:</h2></li>
+                    <li><a href="{{ route('noticias.create.get') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Crear Noticia</a></li>
+                    <li><a href="{{ route('noticias.edit.get','2') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Editar Noticia</a></li>
+                    <li><a href="{{ route('users.show') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Ver Usuarios</a></li>
+                    <li><a href="{{ route('auth.register.get') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Registro</a></li>
+                    <li><a href="{{ route('auth.login.get') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Login</a></li>
+                @else
+                    <li><h2>Usuario:</h2></li>
                 @endif
-                <li><a href="{{ route('main') }}" class="hover:text-gray-400">Inicio</a></li>
-                <li><a href="{{ route('auth.register.get') }}" class="hover:text-gray-400">Registro</a></li>
-                <li><a href="{{ route('auth.login.get') }}" class="hover:text-gray-400">Login</a></li>
+                <li><a href="{{ route('main') }}" class="hover:text-gray-400 hover:border-b-2 border-white">Inicio</a></li>
                 <li>
                     <!-- Si el usuario está autenticado, mostrar su nombre -->
-                    <a href="{{ route('user.get', ['user' => Auth::user()->id]) }}" class="hover:text-gray-400">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('user.get', ['user' => Auth::user()->id]) }}" class="hover:text-gray-400 hover:border-b-2 border-white">{{ Auth::user()->name }}</a>
                 @else
-                    <p> No estas loggeado</p>
+                    <p>No estás logueado</p>
                 @endauth
                 </li>
             </ul>
         </nav>
+        
     </header>
     
     <main class="container my-8 p-6 mx-auto min-h-screen">
@@ -46,6 +51,7 @@
         <p>&copy; {{ date('Y') }} Noticias Pau - Todos los derechos reservados</p>
     </footer>
 
-    @stack('js')
+    {{-- @stack('js') --}}
+    <x-toaster-hub />
 </body>
 </html>
