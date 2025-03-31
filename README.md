@@ -14,6 +14,11 @@ Puedes acceder al proyecto en línea en el siguiente enlace:
 - **Email:** [Pau@gmail.com](mailto:Pau@gmail.com)
 - **Contraseña:** `1234`
 
+## Cuenta de Usuario Común:
+- **Nombre:** Paulo
+- **Email:** [paulo@gmail.com](mailto:paulo@gmail.com)
+- **Contraseña:** `1234`
+  
 ## Descripción
 Este proyecto es una plataforma de noticias donde los periodistas pueden crear, editar y eliminar publicaciones, gestionar géneros y ver qué lectores han dado "me gusta". Los lectores pueden registrarse, explorar noticias, dar "me gusta" y filtrar contenido por género, además de gestionar su perfil personal.
 
