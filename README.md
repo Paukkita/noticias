@@ -15,7 +15,6 @@ Puedes acceder al proyecto en línea en el siguiente enlace:
 - **Contraseña:** `1234`
 
 ## Cuenta de Usuario Común:
-- **Nombre:** Paulo
 - **Email:** [paulo@gmail.com](mailto:paulo@gmail.com)
 - **Contraseña:** `1234`
   
