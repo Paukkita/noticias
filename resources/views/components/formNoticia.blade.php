@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('noticias.store') }}"  class="space-y-4" enctype="multipart/form-data">
+<form method="POST" action="{{ route('noticias.create.post') }}"  class="space-y-4" enctype="multipart/form-data">
     @csrf   
     <h2 class="text-2xl font-bold mb-4 text-center"> Crear una noticia</h2>
     @if ($errors->any())

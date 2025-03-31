@@ -19,6 +19,14 @@ Route::get('/auth/register', function () {
 //Metodo para  registrar usuario
 Route::post('/auth/register', [UserController::class, 'store'])->name('auth.register.post');
 
+//Metodo para acceder a crear una noticia
+Route::get('/noticias', [NoticiaController::class,'acceso'])->name('noticias.create.get');
+//Metodo para ver la noticia completa 
+Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
+
+// Método para crear una noticia
+Route::post('/noticias', [NoticiaController::class, 'store'])->name('noticias.create.post');
+
 //Metodo para iniciar login
 Route::get('/auth', function () {
     Auth::logout();
@@ -27,15 +35,6 @@ Route::get('/auth', function () {
 
 //Metodo para iniciar sesion
 Route::post('/auth', [UserController::class, 'login'])->name('auth.login.post');
-
-//Metodo para acceder a crear una noticia
-Route::get('/noticias', function () {return view('noticias.create');})->name('noticias.create.get');
-
-//Metodo para crear la noticia
-Route::post('/noticias', [NoticiaController::class, 'store'])->name('noticias.store');
-
-//Metodo para ver la noticia completa 
-Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 
 //Metodo para eliminar una noticia
 Route::delete('/noticias/{noticia}/eliminar',[NoticiaController::class, 'destroy'])->name('noticias.destroy'); 

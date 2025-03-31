@@ -15,13 +15,19 @@
         <h1 class="text-lg font-bold">Bienvenido a Pau Noticias</h1>
         <nav>
             <ul class="flex space-x-4">
+                @auth
+                @if (Auth::user()->hasRole('admin'))
+                    <li> <h2 class=" text-medium"> Administrador : </h2></li>
+                    <li><a href="{{ route('noticias.create.get') }}" class="hover:text-gray-400">Crear Noticia</a></li>
+                    <li><a href="{{ route('noticias.edit.get','2') }}" class="hover:text-gray-400">Editar Noticia</a></li>
+                    <li><a href="{{ route('users.show') }}" class="hover:text-gray-400">Ver Usuarios</a></li>
+                @else 
+                    <li> <h2> Usuario : </h2></li>
+                @endif
                 <li><a href="{{ route('main') }}" class="hover:text-gray-400">Inicio</a></li>
                 <li><a href="{{ route('auth.register.get') }}" class="hover:text-gray-400">Registro</a></li>
                 <li><a href="{{ route('auth.login.get') }}" class="hover:text-gray-400">Login</a></li>
-                <li><a href="{{ route('noticias.create.get') }}" class="hover:text-gray-400">Crear Noticia</a></li>
-                <li><a href="{{ route('users.show') }}" class="hover:text-gray-400">Ver Usuarios</a></li>
                 <li>
-                @auth
                     <!-- Si el usuario está autenticado, mostrar su nombre -->
                     <a href="{{ route('user.get', ['user' => Auth::user()->id]) }}" class="hover:text-gray-400">{{ Auth::user()->name }}</a>
                 @else
@@ -32,9 +38,9 @@
         </nav>
     </header>
     
-    <main class="container  my-8 p-6  mx-auto">
+    <main class="container my-8 p-6 mx-auto min-h-screen">
         @yield('content')
-    </main>
+    </main>    
 
     <footer class="bg-gray-800 text-white text-center p-4 mt-8">
         <p>&copy; {{ date('Y') }} Noticias Pau - Todos los derechos reservados</p>

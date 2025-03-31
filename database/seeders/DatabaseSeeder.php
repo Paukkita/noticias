@@ -15,13 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create(); 
+
+        $this->call([
+            UserSeeder::class
+        ]);
         Noticia::factory(10)->create();
-        User::Create([
-            'name' => 'Pau',
-            'email' => 'pau@gmail.com',
-            'password' => Hash::make('1234'),
-            'is_admin' => true
-        ]); 
     }
 }
