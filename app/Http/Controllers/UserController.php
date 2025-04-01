@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -72,7 +73,8 @@ class UserController extends Controller
         $this->authorize('update', $user);
         $user->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password
         ]);
         return redirect()->route('main');
     }

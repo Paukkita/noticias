@@ -43,9 +43,11 @@
         
     </header>
     
-    <main class="container my-8 p-6 mx-auto min-h-screen">
+    <main class="h-screen w-full ">
         @yield('content')
-    </main>    
+    </main>
+    
+
 
     <footer class="bg-gray-800 text-white text-center p-4 mt-8">
         <p>&copy; {{ date('Y') }} Noticias Pau - Todos los derechos reservados</p>
