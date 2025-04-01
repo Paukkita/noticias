@@ -34,16 +34,20 @@
         @foreach ($noticias as $noticia)
             <div class="bg-white shadow-md rounded-lg p-4 mb-4">
                 <!-- Título de la noticia -->
-                <h3 class="text-xl font-bold text-gray-800">{{ $noticia->titulo }}</h3>
+                <h3 class="text-xl font-bold text-gray-800 uppercase">{{ $noticia->titulo }}</h3>
                 
                 <!-- Descripción de la noticia (limitada a 100 caracteres) -->
                 <p class="text-gray-600">{{ Str::limit($noticia->descripcion, 100) }}</p>
                 
-                <!-- Imagen de la noticia -->
-                <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="mt-2 w-48 h-auto">
-
-                <!-- Enlace para leer más sobre la noticia -->
-                <a href="{{ route('noticias.show', $noticia->id) }}" class="text-blue-600 hover:text-blue-800">Leer más</a> 
+                <div class="flex justify-center flex-col mt-4">
+                    <!-- Imagen de la noticia -->
+                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="mt-2 max-w-xs min-w-[200px] max-h-48 min-h-[150px] object-contain">
+                    <br>
+                    <!-- Enlace para leer más sobre la noticia -->
+                    <a href="{{ route('noticias.show', $noticia->id) }}" class="text-blue-600 hover:text-blue-800 text-left px-6">Leer más</a> 
+                </div>
+                
+                
 
                 {{-- Función de dar like o quitarlo --}}
                 <div class="flex space-x-4">
