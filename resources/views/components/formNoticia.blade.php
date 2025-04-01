@@ -32,8 +32,8 @@
     </div>
 
     <div>
-        <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen (Opcional)</label>
-        <input type="file" id="imagen" name="imagen" accept="image/*"
+        <label for="imagen" class="block text-sm font-medium text-gray-700">Imagen</label>
+        <input type="file" id="imagen" name="imagen" require accept="image/*"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
     </div>
 
