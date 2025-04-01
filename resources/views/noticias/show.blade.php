@@ -17,8 +17,8 @@
 
             <!-- Imagen de la noticia -->
             @if ($noticia->imagen)
-                <div class="mt-6">
-                    <img src="{{ asset('storage/' . $noticia->imagen) }}" alt="Imagen de la noticia" class="mx-auto w-96 h-auto rounded">
+                <div class=" flex mt-6 justify-center ">
+                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="mt-2 w-60 h-auto">
                 </div>
             @endif
         </div>
@@ -42,31 +42,31 @@
             }
         </script>
         
-        @can('eliminar noticias')
-            <div class="mb-2">
+        <div class="flex justify-center gap-7 mb-5">
+            @can('eliminar noticias')
+            <div>
                 <!-- Formulario de eliminación con confirmación de SweetAlert -->
-                <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="px-6 py-4 text-center" onsubmit="confirmarEliminar(this)">
+                <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="text-center" onsubmit="confirmarEliminar(this)">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="w-full py-3 px-6 border text-lg rounded mt-4 bg-white hover:bg-red-300">
+                    <button type="submit" class=" py-3 px-6 border text-lg rounded  bg-white hover:bg-red-300 w-[400px] h-[100px]">
                         Eliminar Noticia
                     </button>
                 </form>
             </div>
         @endcan
-        
-    
         @can('editar noticias')
             <!-- Botón de editar -->
-            <div class="card-footer text-center px-6 py-4 border mx-[20px] mb-2 hover:bg-yellow-300">
-                <a href="{{ route('noticias.edit.get', $noticia->id) }}" class="w-full py-3 px-6  text-lg rounded mt-4   ">
+            <div class="flex justify-center items-center text-center px-6 py-3 border hover:bg-yellow-300 w-[400px] h-[100px]">
+                <a href="{{ route('noticias.edit.get', $noticia->id) }}" class=" text-lg rounded">
                     Editar noticia
                 </a>
             </div>
         @endcan
-        
+        </div>
+
         <!-- Botón de volver -->
-        <div class="card-footer text-center px-6 py-4 border mx-[20px] mb-2 hover:bg-blue-300" >
+        <div class=" flex justify-center  text-center px-6 py-4 border mx-auto mb-2 hover:bg-blue-300 w-[400px]" >
             <a href="{{ route('main') }}" class="w-full py-3 px-6 text-lg rounded mt-4 ">
                 Volver
             </a>

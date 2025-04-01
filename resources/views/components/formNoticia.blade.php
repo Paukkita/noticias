@@ -48,15 +48,17 @@
         </select>
     </div>
 
-    <div class="flex items-center justify-between">
-        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">
+    <div class="flex items-center justify-center gap-7">
+        <button type="submit" class="w-[500px] bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">
             Publicar Noticia
+        </button>
+        <!-- Boton para volver atrás -->
+        <button onclick="window.location.href='{{ route('main') }}'" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-[300px]">
+            Volver atrás
         </button>
     </div>
     
 </form>
 <br>
-<!-- Boton para volver atrás -->
-<button onclick="window.location.href='{{ route('main') }}'" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-    Volver atrás
-</button>
+
+

@@ -54,7 +54,7 @@ class NoticiaController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('main')->with('success', 'Noticia creada correctamente.');
+        return redirect()->route('main');
     }
 
     // Función para acceder a la vista de crear noticia
