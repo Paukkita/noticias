@@ -43,13 +43,12 @@
         
     </header>
     
-    <main class="h-screen w-full ">
+    <main class="h-full w-full min-h-screen">
         @yield('content')
     </main>
     
 
-
-    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+    <footer class="bg-gray-800 text-white text-center p-4 ">
         <p>&copy; {{ date('Y') }} Noticias Pau - Todos los derechos reservados</p>
     </footer>
 

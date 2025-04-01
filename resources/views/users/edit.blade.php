@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="p-8">
+
     @if ($errors->any())
         <div class="p-4 bg-red-100 text-red-700 rounded">
             <h2 class="font-bold">Errores</h2>
@@ -52,4 +54,5 @@
             </button>
         </div>
     </form>
+</div>
 @endsection

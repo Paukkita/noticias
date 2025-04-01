@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="p-8">
+    
 <!-- Formulario para editar una noticia -->
 <form method="POST" action="{{ route('noticias.edit.put', $noticia->id) }}" class="space-y-4" enctype="multipart/form-data">
     @method('PUT') <!-- Especifica que esta es una solicitud PUT -->
@@ -70,3 +71,5 @@
     </div>
 </form>
 @endsection
+
+</div>

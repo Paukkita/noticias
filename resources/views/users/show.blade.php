@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-   
     <!-- Contenedor principal para los detalles de los usuarios -->
     <div class="container mx-auto p-6">
         <h2 class="text-2xl font-bold mb-4">Detalles de los Usuarios</h2>  <!-- Título principal -->
@@ -98,5 +97,4 @@
         });
     });
     </script>
-    
 @endsection

@@ -1,3 +1,5 @@
+<div class="p-8">
+    
 <form method="POST" action="{{ route('noticias.create.post') }}"  class="space-y-4" enctype="multipart/form-data">
     @csrf   
     <h2 class="text-2xl font-bold mb-4 text-center"> Crear una noticia</h2>
@@ -49,17 +51,17 @@
         </select>
     </div>
 
-    <div class="flex items-center justify-center gap-7">
+    <div class="flex items-center justify-center">
         <button type="submit" class="w-[500px] bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">
             Publicar Noticia
         </button>
-        <!-- Boton para volver atrás -->
-        <button onclick="window.location.href='{{ route('main') }}'" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-[300px]">
-            Volver atrás
-        </button>
     </div>
-    
 </form>
-<br>
+<div class="flex items-center justify-center mt-4 ">
+    <!-- Boton para volver atrás -->
+    <button onclick="window.location.href='{{ route('main') }}'" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 w-[500px]">
+        Volver atrás
+    </button>
+</div>
 
-
+</div>

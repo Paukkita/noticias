@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex h-screen relative">
+<div class="flex h-screen ">
 <!-- Barra lateral siempre visible en estado colapsado -->
 <aside id="mySidebar" class="bg-gray-800 h-full text-white w-16 px-2 py-7 border-t-2 border-r-2 border-black   transition-all duration-300 overflow-hidden">
     <!-- Botón siempre visible dentro del sidebar -->
-    <button id="toggle-sidebar" class="absolute top-4 left-4 bg-teal-600 text-white p-2 rounded-md z-50" onclick="toggleSidebar()">&#9776;</button>
+    <button id="toggle-sidebar" class=" bg-teal-600 text-white p-2 rounded-md z-50" onclick="toggleSidebar()">&#9776;</button>
     <br> <br>
     <!-- Contenido de la barra lateral (Oculto inicialmente) -->
     <div id="sidebar-content" class="hidden opacity-0 transition-opacity duration-300">
