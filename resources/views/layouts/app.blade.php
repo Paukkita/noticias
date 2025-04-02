@@ -13,10 +13,19 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Importar Poppins desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
 </head>
 <body class="bg-gray-100 text-gray-900">
     <header class="bg-gray-800 text-white p-4 flex justify-between items-center shadow-2xl">
-        <h1 class="text-lg font-bold">🐻 Bienvenido a Pau Noticias 🐻</h1>
+        <h1 class="text-lg font-bold flex items-center">
+            <img src="{{ asset('logo_oso.png') }}" alt="Logo Oso" class="w-16 h-16">
+            <h1 class="ml-2 mt-2 text-4xl font-bold text-center font-[Roboto] mb-4">
+                Noticias
+            </h1>
+        </h1>
+        
         <nav>
             <ul class="flex space-x-4">
                 @auth

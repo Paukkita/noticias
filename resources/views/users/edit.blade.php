@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-8">
-
+<div class="p-8 w-[1000px] mx-auto flex flex-col">
+    <div class="mx-auto">
+        <img src="{{ asset('logo_oso.png') }}" alt="Logo Oso" class="w-32 h-32 ml-10"><br>
+    
+    <h2 class="text-2xl font-bold mb-4 text-center font-[Roboto]">Usuario a modificar</h2> <!-- Título principal -->
+    </div>
     @if ($errors->any())
         <div class="p-4 bg-red-100 text-red-700 rounded">
             <h2 class="font-bold">Errores</h2>
@@ -47,12 +51,24 @@
             <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
             <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
+        <!-- Selección de Rol -->
+        <div>
+            <label for="role" class="block text-sm font-medium text-gray-700">Rol</label>
+            <select id="role" name="role" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                <option value="user" {{ $user->hasRole('user') ? 'selected' : '' }}>Usuario</option>
+                <option value="admin" {{ $user->hasRole('admin') ? 'selected' : '' }}>Administrador</option>
+            </select>
+        </div>
         <!-- Botón para enviar el formulario -->
-        <div class="flex items-center justify-between">
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">
+        <div class="flex items-center justify-between ">
+            <button type="submit" class="mt-2 bg-blue-600 text-white py-2 px-4  mx-auto rounded-md hover:bg-blue-700 focus:outline-none w-[200px] font-[Poppins]">
                 Modificar usuario
             </button>
         </div>
     </form>
+    <!-- Boton para volver atrás -->
+    <button onclick="window.location.href='{{ route('main') }}'" class="bg-blue-600 mt-2 w-[200px] mx-auto text-white py-2 px-4 rounded-md hover:bg-blue-700 font-[Poppins] h-[50px]">
+        Volver atrás
+    </button>
 </div>
 @endsection

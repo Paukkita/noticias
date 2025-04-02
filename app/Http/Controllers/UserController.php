@@ -26,6 +26,8 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
+        //Le asigno el rol de usuario
+        $user->assignRole('user'); 
         if (Auth::check()) {
             return redirect()->route('users.show');
         } else {
@@ -76,6 +78,10 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password
         ]);
+        // Actualizar rol del usuario
+        if ($request->role) {
+            $user->syncRoles([$request->role]); // Elimina roles previos y asigna el nuevo
+        }
         return redirect()->route('main');
     }
 

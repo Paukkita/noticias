@@ -5,23 +5,33 @@
     <div class="card shadow-lg rounded-lg overflow-hidden bg-white mx-auto">
         <!-- Título de la noticia -->
         <div class="card-header py-6">
-            <h2 class="text-4xl text-center font-bold">{{ $noticia->titulo }}</h2>
+            <h2 class="text-4xl text-center font-bold font-[Roboto]">{{ $noticia->titulo }}</h2>
         </div>
         
-        <!-- Contenido de la noticia -->
-        <div class="card-body p-6 text-center">
-            <p class="text-xl font-semibold"><strong>Fecha de Publicación:</strong> {{ $noticia->fecha_publicacion }}</p>
-            <p class="text-xl font-semibold"><strong>Género:</strong> {{ $noticia->genero }}</p>
-            <p class="text-xl font-semibold"><strong>Descripción:</strong></p>
-            <p class="text-lg">{{ $noticia->descripcion }}</p>
+<!-- Contenido de la noticia -->
+<div class="card-body p-8  text-center max-w-2xl mx-auto">
+    <!-- Fecha y Género -->
+    <div class="mb-4">
+        <p class="text-xl font-semibold text-gray-700"><strong>Fecha de Publicación:</strong> {{ $noticia->fecha_publicacion }}</p>
+        <p class="text-xl font-semibold text-gray-700"><strong>Género:</strong> {{ $noticia->genero }}</p>
+    </div>
 
-            <!-- Imagen de la noticia -->
-            @if ($noticia->imagen)
-                <div class=" flex mt-6 justify-center ">
-                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="mt-2 w-60 h-auto">
-                </div>
-            @endif
+    <!-- Descripción -->
+    <div class="mb-6">
+        <p class="text-xl font-semibold text-gray-700"> <strong> Descripción : </strong></p>
+        <p class="text-lg break-words text-gray-600 border border-gray-400 p-4 rounded-md bg-gray-100 w-full max-w-[500px] mx-auto">
+            {{ $noticia->descripcion }}
+        </p>
+    </div>
+
+    <!-- Imagen de la noticia -->
+    @if ($noticia->imagen)
+        <div class="flex justify-center">
+            <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="mt-4 w-80 h-auto rounded-lg shadow-md">
         </div>
+    @endif
+</div>
+
         <script>
             function confirmarEliminar(form) {
                 event.preventDefault();
@@ -49,7 +59,7 @@
                 <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="text-center" onsubmit="confirmarEliminar(this)">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class=" py-3 px-6 border text-lg rounded  bg-white hover:bg-red-300 w-[400px] h-[100px]">
+                    <button type="submit" class=" py-3 px-6 border text-lg rounded  bg-red-400 hover:bg-red-300 w-[300px] h-[100px] uppercase font-[Poppins]">
                         Eliminar Noticia
                     </button>
                 </form>
@@ -57,7 +67,7 @@
         @endcan
         @can('editar noticias')
             <!-- Botón de editar -->
-            <div class="flex justify-center items-center text-center px-6 py-3 border hover:bg-yellow-300 w-[400px] h-[100px]">
+            <div class="flex justify-center items-center text-center px-6 py-3 border bg-blue-400 hover:bg-blue-300 w-[300px] h-[100px] uppercase font-[Poppins]">
                 <a href="{{ route('noticias.edit.get', $noticia->id) }}" class=" text-lg rounded">
                     Editar noticia
                 </a>
@@ -66,8 +76,8 @@
         </div>
 
         <!-- Botón de volver -->
-        <div class=" flex justify-center  text-center px-6 py-4 border mx-auto mb-2 hover:bg-blue-300 w-[400px]" >
-            <a href="{{ route('main') }}" class="w-full py-3 px-6 text-lg rounded mt-4 ">
+        <div class=" flex justify-center  text-center px-6 py-4 border mx-auto mb-2 bg-blue-400 hover:bg-blue-300 w-[200px] uppercase" >
+            <a href="{{ route('main') }}" class="w-full text-lg rounded font-[Poppins]">
                 Volver
             </a>
         </div>
