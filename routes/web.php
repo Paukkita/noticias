@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\UserController;
 use App\Models\Noticia;
@@ -71,3 +72,8 @@ Route::post('/noticias/{noticia}/like', [NoticiaController::class, 'like'])->nam
 
 // Ruta para quitar el "Me gusta"
 Route::delete('/noticias/{noticia}/unlike', [NoticiaController::class, 'unlike'])->name('noticias.unlike');
+
+//------------------------------------------------------------------------------------------------------
+// Método para crear una genero
+Route::post('/generos', [GeneroController::class, 'store'])->name('generos.store');
+

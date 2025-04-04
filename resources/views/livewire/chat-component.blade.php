@@ -7,7 +7,7 @@
     <!-- Campo de texto para la pregunta -->
     <textarea wire:model="askText" 
             class="w-full mt-4 p-2 border rounded-md bg-gray-700 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" 
-            placeholder="Ej: ¿Noticia con más likes?"></textarea>
+            placeholder="Escribe tu pregunta aquí"></textarea>
     
     <!-- Botón de pregunta -->
     <button wire:click="submit" 

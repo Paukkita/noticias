@@ -18,7 +18,7 @@ class StoreNoticiaRequest extends FormRequest
             'fecha_publicacion' => 'required|date',
             'descripcion' => 'required|string',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'genero' => 'required|string|in:Deportes,Política,Cultura,Tecnología',
+            'genero_id' => 'required|',
         ];
     }
 
@@ -36,8 +36,6 @@ class StoreNoticiaRequest extends FormRequest
             'imagen.mimes' => 'El :attribute debe ser de tipo: jpeg, png, jpg, gif, svg.',
             'imagen.max' => 'El :attribute no puede superar los 2MB.',
             'genero.required' => 'El :attribute es obligatorio.',
-            'genero.string' => 'El :attribute debe ser un texto.',
-            'genero.in' => 'El :attribute debe ser uno de los siguientes valores: Deportes, Política, Cultura, Tecnología.',
         ];
     }
 }

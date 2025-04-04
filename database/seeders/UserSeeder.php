@@ -23,6 +23,8 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'editar noticias']);
         Permission::create(['name' => 'eliminar noticias']);
 
+        Permission::create(['name' => 'crear genero']);
+
         // Crear usuario admin
         $adminUser = User::create([
             'name' => 'Pau',

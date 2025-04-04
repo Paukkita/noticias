@@ -76,7 +76,7 @@
                 </button>
             </form>
             <!-- Boton para volver atrás -->
-            <button onclick="window.location.href='{{ route('main') }}'" class="bg-blue-600 mt-2 w-[200px] text-white py-2 px-4 rounded-md hover:bg-blue-700 font-[Poppins] h-[50px]">
+            <button onclick="window.history.back()" class="bg-blue-600 mt-2 w-[200px] text-white py-2 px-4 rounded-md hover:bg-blue-700 font-[Poppins] h-[50px]">
                 Volver atrás
             </button>
         </div>

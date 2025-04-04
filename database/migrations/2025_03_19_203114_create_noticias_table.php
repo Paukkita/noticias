@@ -17,8 +17,10 @@ return new class extends Migration
             $table->date('fecha_publicacion');
             $table->text('descripcion');
             $table->string('imagen')->nullable();
-            $table->string('genero');
-
+            $table->foreignId('genero_id')
+                    ->constrained()
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade'); 
           /*   $table->morphs('noticiaable'); */
             $table->timestamps();
         });

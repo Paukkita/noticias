@@ -52,14 +52,12 @@
 
     <!-- Selección del género de la noticia -->
     <div>
-        <label for="genero" class="block text-sm font-medium text-gray-700">Género</label>
-        <select id="genero" name="genero" required
-        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-            <option option value="">Seleccione un género</option>
-            <option value="Deportes" {{ (old('genero', $noticia->genero) == 'Deportes') ? 'selected' : '' }}>Deportes</option>
-            <option value="Política" {{ (old('genero', $noticia->genero) == 'Política') ? 'selected' : '' }}>Política</option>
-            <option value="Cultura" {{ (old('genero', $noticia->genero) == 'Cultura') ? 'selected' : '' }}>Cultura</option>
-            <option value="Tecnología" {{ (old('genero', $noticia->genero) == 'Tecnología') ? 'selected' : '' }}>Tecnología</option>
+        <label for="genero_id" class="block text-sm font-medium text-gray-700">Género</label>
+        <select name="genero_id" id="genero_id">
+        <option value="">Seleccione un género</option>
+        @foreach ($generos as $genero)
+        <option value="{{ $genero->id }}">{{ $genero->genero }}</option>
+        @endforeach
         </select>
     </div>
 

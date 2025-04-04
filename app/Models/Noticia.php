@@ -14,7 +14,7 @@ class Noticia extends Model
         'fecha_publicacion',
         'descripcion',
         'imagen',
-        'genero',
+        'genero_id',
     ];
       //oneToOne polimorfica
     /*  public function noticiaable(){
@@ -33,5 +33,9 @@ class Noticia extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'noticia_user', 'noticia_id', 'user_id');
+    }
+
+    public function genero(){
+        return $this->belongsTo(Genero::class);
     }
 }

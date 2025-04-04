@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoticiaRequest;
+use App\Models\Genero;
 use App\Models\Noticia;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Masmerise\Toaster\Toaster;
 
 class NoticiaController extends Controller
 
@@ -19,7 +19,6 @@ class NoticiaController extends Controller
     // Función para mostrar las noticias
     public function index()
     {
-        Toaster::warning('Has quitado el like de la noticia :('); // 👈
         if (Auth::check()) {
             // Autorización manual para ver las noticias
             $this->authorize('viewAny', Noticia::class);
@@ -50,7 +49,7 @@ class NoticiaController extends Controller
             'fecha_publicacion' => $request->fecha_publicacion,
             'descripcion' => $request->descripcion,
             'imagen' => $imagenPath,
-            'genero' => $request->genero,
+            'genero_id' => $request->genero_id,
             'user_id' => Auth::id(),
         ]);
 
@@ -63,7 +62,9 @@ class NoticiaController extends Controller
         // Autorización manual para ver la página de crear noticia
         $this->authorize('create', Noticia::class);
         
-        return view('noticias.create');
+        $generos = Genero::orderBy('id', 'desc')->get();
+        
+        return view('noticias.create',['generos'=>$generos]);
     }
 
     // Función para mostrar una noticia específica
@@ -91,7 +92,9 @@ class NoticiaController extends Controller
         // Autorización manual para editar una noticia
         $this->authorize('update', $noticia);
 
-        return view('noticias.edit', compact('noticia'));
+        $generos = Genero::orderBy('id', 'desc')->get();
+
+        return view('noticias.edit', compact('noticia', 'generos'));
     }
 
     // Función para actualizar una noticia
@@ -117,7 +120,7 @@ class NoticiaController extends Controller
             'fecha_publicacion' => $request->fecha_publicacion,
             'descripcion' => $request->descripcion,
             'imagen' => $imagenPath,
-            'genero' => $request->genero,
+            'genero_id' => $request->genero_id,
         ]);
 
         return redirect()->route('main');
@@ -129,7 +132,6 @@ class NoticiaController extends Controller
         if (!$noticia->users()->where('user_id', Auth::id())->exists()) {
             $noticia->users()->attach(Auth::id());
         }
-        Toaster::success('Has dado like a la noticia!'); // 👈
 
         return redirect()->back();
     }
@@ -138,9 +140,7 @@ class NoticiaController extends Controller
     public function unlike(Noticia $noticia)
     {
         $noticia->users()->detach(Auth::id());
-    
-        Toaster::warning('Has quitado el like de la noticia :('); 
-        
+
         return redirect()->back();
     }
     

@@ -34,6 +34,6 @@ class="space-y-4"
 </div>
 
 <div class="flex items-center justify-between mt-4">
-    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none">Iniciar Sesión</button>
+    <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none">Iniciar Sesión</button>
 </div>
 </form>
