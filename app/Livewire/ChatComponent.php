@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\ChatHistory;
 use Livewire\Component;
-use App\Models\Noticia; // Importa el modelo Noticia
+use App\Models\Noticia;
 use App\Services\GroqService;
+use Illuminate\Support\Facades\Auth;
 
 class ChatComponent extends Component
 {
@@ -16,6 +18,7 @@ class ChatComponent extends Component
     public function boot(GroqService $groqService)
     {
         $this->groqService = $groqService;
+        $this->loadChatHistory();
     }
 
     public function render()
@@ -25,13 +28,11 @@ class ChatComponent extends Component
 
     public function submit()
     {
-        // Verificar si se seleccionó una pregunta
         if (empty($this->selectedQuestion)) {
             $this->responseText = "⚠️ Por favor, selecciona una pregunta antes de enviar.";
             return;
         }
 
-        // Mapa directo de las preguntas
         $questionsMap = [
             'most_liked' => '¿Cuál es la noticia con más likes?',
             'least_liked' => '¿Cuál es la noticia con menos likes?',
@@ -39,74 +40,96 @@ class ChatComponent extends Component
             'news_count' => '¿Cuántas noticias hay?'
         ];
 
-        // Obtener la pregunta seleccionada
         $questionText = $questionsMap[$this->selectedQuestion] ?? 'Pregunta no válida';
 
-        // Respuesta según la pregunta seleccionada
+        // Guardar pregunta del usuario primero
+        $this->saveMessage($questionText, 'user');
+
         switch ($this->selectedQuestion) {
             case 'most_liked':
-                $this->responseText = $this->getMostLikedNews();
+                $response = $this->getMostLikedNews();
                 break;
             case 'least_liked':
-                $this->responseText = $this->getLeastLikedNews();
+                $response = $this->getLeastLikedNews();
                 break;
             case 'latest_news':
-                $this->responseText = $this->getLatestNews();
+                $response = $this->getLatestNews();
                 break;
             case 'news_count':
-                $this->responseText = $this->getNewsCount();
+                $response = $this->getNewsCount();
                 break;
             default:
-                $this->responseText = "❌ No pude entender tu pregunta, intenta con una opción válida.";
+                $response = "❌ No pude entender tu pregunta, intenta con una opción válida.";
         }
 
-        // Agregar la pregunta y la respuesta de la IA al historial
-        $this->chatHistory[] = ['role' => 'user', 'content' => $questionText];
-        $this->chatHistory[] = ['role' => 'IA', 'content' => $this->responseText];
+        $this->responseText = $response;
+        $this->saveMessage($response, 'IA');
 
-        // Limpiar la selección de pregunta para permitir nuevas preguntas
         $this->selectedQuestion = '';
+        $this->loadChatHistory();
     }
 
-    // Obtener la noticia con más likes
     private function getMostLikedNews()
     {
         $noticia = Noticia::withCount('users')->orderByDesc('users_count')->first();
 
-        if ($noticia) {
-            return "🏆 La noticia con más likes es **'{$noticia->titulo}'** con {$noticia->users_count} likes. Puedes leer más aquí: " . route('noticias.show', $noticia->id);
-        }
-
-        return "❌ No se encontraron noticias con likes.";
+        return $noticia
+            ? "🏆 La noticia con más likes es '{$noticia->titulo}' con {$noticia->users_count} likes. Puedes leer más aquí: " . route('noticias.show', $noticia->id)
+            : "❌ No se encontraron noticias con likes.";
     }
 
-    // Obtener la noticia con menos likes
     private function getLeastLikedNews()
     {
         $noticia = Noticia::withCount('users')->orderBy('users_count')->first();
 
-        if ($noticia) {
-            return "❌ La noticia con menos likes es **'{$noticia->titulo}'** con {$noticia->users_count} likes. Puedes leer más aquí: " . route('noticias.show', $noticia->id);
-        }
-
-        return "❌ No se encontraron noticias con menos likes.";
+        return $noticia
+            ? "📉 La noticia con menos likes es '{$noticia->titulo}' con {$noticia->users_count} likes. Puedes leer más aquí: " . route('noticias.show', $noticia->id)
+            : "❌ No se encontraron noticias con menos likes.";
     }
 
-    // Obtener la última noticia publicada
     private function getLatestNews()
     {
         $noticia = Noticia::orderByDesc('created_at')->first();
 
-        if ($noticia) {
-            return "🆕 La última noticia publicada es **'{$noticia->titulo}'** el " . $noticia->created_at->format('d/m/Y') . ". Puedes leerla aquí: " . route('noticias.show', $noticia->id);
-        }
-
-        return "❌ No hay noticias publicadas.";
+        return $noticia
+            ? "🆕 La última noticia publicada es '{$noticia->titulo}' el " . $noticia->created_at->format('d/m/Y') . ". Puedes leerla aquí: " . route('noticias.show', $noticia->id)
+            : "❌ No hay noticias publicadas.";
     }
 
-    // Obtener el conteo de noticias
     private function getNewsCount()
     {
-        return "📢 Actualmente hay " . Noticia::count() . " noticias publicadas.";
+        $count = Noticia::count();
+        return "📢 Actualmente hay " . $count . " noticias publicadas.";
+    }
+
+    private function loadChatHistory()
+    {
+        $this->chatHistory = ChatHistory::where('user_id', Auth::id())
+            ->orderBy('created_at', 'asc')
+            ->limit(20)
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'role' => $item->role,
+                    'content' => $item->content
+                ];
+            })
+            ->toArray();
+    }
+
+    private function saveMessage($content, $role)
+    {
+        ChatHistory::create([
+            'user_id' => Auth::id(),
+            'role' => $role,
+            'content' => $content,
+        ]);
+    }
+
+    public function clearHistory()
+    {
+        ChatHistory::where('user_id', Auth::id())->delete();
+        $this->chatHistory = [];
+        $this->responseText = '';
     }
 }

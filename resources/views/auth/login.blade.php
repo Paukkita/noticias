@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-md mx-auto mt-24 p-6 bg-white shadow-lg rounded-lg">
-        <h2 class="text-3xl font-bold mb-4 text-center font-[Roboto]">Noticiario</h2>
+        <h2 class="text-3xl font-bold mb-4 text-center font-[Roboto]">Iniciar sesión</h2>
 
         {{-- Incluir el formulario de login --}}
         <x-form />
