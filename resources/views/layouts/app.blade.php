@@ -82,6 +82,7 @@
 
     <main class="h-full w-full min-h-screen">
         @yield('content')
+        @include('sweetalert::alert')
     </main>
 
 

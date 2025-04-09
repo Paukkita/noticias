@@ -8,8 +8,9 @@ use App\Services\GroqService;
 
 class ChatComponent extends Component
 {
-    public $askText = '';
+    public $selectedQuestion = '';
     public $responseText = '';
+    public $chatHistory = [];
     protected $groqService;
 
     public function boot(GroqService $groqService)
@@ -24,44 +25,47 @@ class ChatComponent extends Component
 
     public function submit()
     {
-        if (empty($this->askText)) {
-            $this->responseText = "⚠️ Ingresa una pregunta antes de enviar.";
+        // Verificar si se seleccionó una pregunta
+        if (empty($this->selectedQuestion)) {
+            $this->responseText = "⚠️ Por favor, selecciona una pregunta antes de enviar.";
             return;
         }
 
-        // Definir el contexto para la IA
-        $messages = [
-            ['role' => 'system', 'content' => "Eres un asistente que responde preguntas sobre noticias en la plataforma. 
-            Puedes acceder a funciones del sistema como:
-            - 'getMostLikedNews()' para obtener la noticia con más likes.
-            - 'getLeastLikedNews()' para obtener la noticia con menos likes.
-            - 'getLatestNews()' para obtener la última noticia publicada.
-            - 'getNewsCount()' para contar cuántas noticias hay.
-            Analiza la pregunta del usuario y responde usando una de estas funciones si es necesario."],
-            ['role' => 'user', 'content' => $this->askText]
+        // Mapa directo de las preguntas
+        $questionsMap = [
+            'most_liked' => '¿Cuál es la noticia con más likes?',
+            'least_liked' => '¿Cuál es la noticia con menos likes?',
+            'latest_news' => '¿Cuál es la noticia más reciente?',
+            'news_count' => '¿Cuántas noticias hay?'
         ];
 
-        try {
-            $response = $this->groqService->chat($messages);
-            $reply = $response['choices'][0]['message']['content'] ?? '❌ No se recibió respuesta.';
+        // Obtener la pregunta seleccionada
+        $questionText = $questionsMap[$this->selectedQuestion] ?? 'Pregunta no válida';
 
-            // Evaluar si la IA sugiere ejecutar una función
-            if (str_contains($reply, 'getMostLikedNews()')) {
+        // Respuesta según la pregunta seleccionada
+        switch ($this->selectedQuestion) {
+            case 'most_liked':
                 $this->responseText = $this->getMostLikedNews();
-            } elseif (str_contains($reply, 'getLeastLikedNews()')) {
+                break;
+            case 'least_liked':
                 $this->responseText = $this->getLeastLikedNews();
-            } elseif (str_contains($reply, 'getLatestNews()')) {
+                break;
+            case 'latest_news':
                 $this->responseText = $this->getLatestNews();
-            } elseif (str_contains($reply, 'getNewsCount()')) {
+                break;
+            case 'news_count':
                 $this->responseText = $this->getNewsCount();
-            } else {
-                $this->responseText = $reply;
-            }
-        } catch (\Exception $e) {
-            $this->responseText = '❌ Error: ' . $e->getMessage();
+                break;
+            default:
+                $this->responseText = "❌ No pude entender tu pregunta, intenta con una opción válida.";
         }
 
-        $this->askText = ''; // Limpiar el input después de enviar
+        // Agregar la pregunta y la respuesta de la IA al historial
+        $this->chatHistory[] = ['role' => 'user', 'content' => $questionText];
+        $this->chatHistory[] = ['role' => 'IA', 'content' => $this->responseText];
+
+        // Limpiar la selección de pregunta para permitir nuevas preguntas
+        $this->selectedQuestion = '';
     }
 
     // Obtener la noticia con más likes

@@ -119,8 +119,8 @@
                 <button onclick="toggleForm('crear-genero-form')" class="w-full text-white text-xl font-[Poppins]">
                     Añadir Género
                 </button>
-                <div id="crear-genero-form" class="mt-4 hidden">
-                    <form method="POST" action="{{ route('generos.store') }}" class="space-y-3" enctype="multipart/form-data">
+                <div id="crear-genero-form" class="mt-2 hidden">
+                    <form method="POST" action="{{ route('generos.store') }}" onsubmit="confirmarGenero(event, this)"  class="space-y-3" enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                         <div class="p-3 bg-red-100 text-red-700 rounded-md text-sm">
@@ -133,8 +133,24 @@
                         </div>
                         @endif
                         <input type="text" id="genero" name="genero" class="w-full px-2 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
-                        <button type="submit" class="w-full bg-gray-800 text-white py-1 px-3 rounded-md hover:bg-gray-700 focus:outline-none text-sm">Crear</button>
+                        <button type="submit"  class="w-full bg-gray-800 text-white py-1 px-3 rounded-md hover:bg-gray-700 focus:outline-none text-sm">Crear</button>
                     </form>
+                    <script>
+                            function confirmarGenero(event, form) {
+                                event.preventDefault();
+                                Swal.fire({
+                                    title: "¿Estas seguro de crear el género?",
+                                    icon: "question",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Sí",
+                                    cancelButtonText: "No"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        form.submit();
+                                    }})};
+                        </script>
                 </div>
             </div>
             @endcan

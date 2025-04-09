@@ -52,11 +52,11 @@ Route::get('/', [NoticiaController::class, 'index'])->name('main');
 //Metodo para acceder a crear una noticia
 Route::get('/noticias', [NoticiaController::class,'acceso'])->name('noticias.create.get');
 
-//Metodo para ver la noticia completa 
-Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
-
 // Método para crear una noticia
 Route::post('/noticias', [NoticiaController::class, 'store'])->name('noticias.create.post');
+
+//Metodo para ver la noticia completa 
+Route::get('/noticias/{noticia}', [NoticiaController::class, 'show'])->name('noticias.show');
 
 //Metodo para eliminar una noticia
 Route::delete('/noticias/{noticia}/eliminar',[NoticiaController::class, 'destroy'])->name('noticias.destroy'); 

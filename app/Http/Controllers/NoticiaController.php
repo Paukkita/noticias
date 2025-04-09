@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class NoticiaController extends Controller
 
@@ -52,7 +53,7 @@ class NoticiaController extends Controller
             'genero_id' => $request->genero_id,
             'user_id' => Auth::id(),
         ]);
-
+        Alert::toast('Noticia "' . $request->titulo . '" creada correctamente.', 'success')->position('top-end');
         return redirect()->route('main');
     }
 
@@ -83,6 +84,7 @@ class NoticiaController extends Controller
         $this->authorize('delete', $noticia);
 
         $noticia->delete();
+        Alert::toast('Noticia "' . $noticia->titulo . '" eliminada correctamente.', 'warning')->position('top-end');
         return redirect()->route('main');
     }
 
@@ -122,7 +124,7 @@ class NoticiaController extends Controller
             'imagen' => $imagenPath,
             'genero_id' => $request->genero_id,
         ]);
-
+        Alert::toast('Noticia "' . $noticia->titulo . '" modificada correctamente.', 'success')->position('top-end');
         return redirect()->route('main');
     }
 
