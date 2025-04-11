@@ -26,14 +26,6 @@
         </span>
     </button>
 
-    <!-- Respuesta -->
-    @if($responseText)
-    <div class="mt-4 p-3 bg-gray-800 rounded-md text-sm border border-gray-600">
-        <strong class="block text-blue-400 mb-1">Respuesta:</strong>
-        <p>{{ $responseText }}</p>
-    </div>
-    @endif
-
     <!-- Historial -->
     <div class="mt-4 p-2 bg-gray-800 rounded-md text-sm border border-gray-600 max-h-[500px] overflow-y-auto space-y-2">
         <div class="flex justify-between items-center mb-2">
@@ -54,7 +46,7 @@
                         @if($message['role'] === 'user')
                             Tú
                         @else
-                            Asistente
+                            Asistente IA
                         @endif
                     </strong>
                     <span class="block mt-1">{{ $message['content'] }}</span>

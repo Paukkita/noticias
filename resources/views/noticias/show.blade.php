@@ -1,69 +1,89 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto p-6">
-    <div class=" shadow-lg rounded-lg overflow-hidden bg-white mx-auto">
-        <!-- Título de la noticia -->
-        <div class=" py-6">
-            <h2 class="text-5xl text-center font-bold font-[Roboto] text-gray-800">{{ $noticia->titulo }}</h2>
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- Tarjeta principal -->
+    <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+        <!-- Cabecera con título -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 py-8 px-6">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white font-sans">{{ $noticia->titulo }}</h1>
         </div>
-        
-        <!-- Contenido de la noticia -->
-        <div class="p-8 flex items-start justify-between space-x-8 ">
-            <!-- Texto de la noticia a la izquierda -->
+
+        <!-- Contenido principal -->
+        <div class="p-6 md:p-8 flex flex-col lg:flex-row gap-8">
+            <!-- Sección de texto -->
             <div class="flex-1">
-                <!-- Fecha y Género -->
-                <div class="mb-4">
-                <p class="text-2xl font-semibold text-gray-800"><strong>Fecha de Publicación:</strong> {{ $noticia->fecha_publicacion }}</p>
-                <p class="text-2xl font-semibold text-gray-800"><strong>Género:</strong> {{ $noticia->genero->genero }}</p>
-            </div>
+                <!-- Metadatos -->
+                <div class="flex flex-col sm:flex-row gap-4 mb-6">
+                    <div class="bg-blue-50 px-4 py-2 rounded-lg">
+                        <p class="text-sm text-blue-800 font-semibold">Fecha de Publicación</p>
+                        <p class="text-lg font-medium">{{ $noticia->fecha_publicacion }}</p>
+                    </div>
+                    <div class="bg-purple-50 px-4 py-2 rounded-lg">
+                        <p class="text-sm text-purple-800 font-semibold">Género</p>
+                        <p class="text-lg font-medium">{{ $noticia->genero->genero }}</p>
+                    </div>
+                </div>
 
                 <!-- Descripción -->
-                <div class="mb-4    ">
-                    <p class="text-2xl font-semibold text-gray-800"> <strong> Descripción : </strong></p>
-                    <p class="text-lg break-words text-gray-600 border border-gray-400 p-4 rounded-md bg-gray-100 w-full max-w-[500px] mt-2">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Descripción</h3>
+                    <div class=" max-w-[400px] text-gray-700 border-l-4 border-blue-500 pl-4 py-2 break-words overflow-hidden ">
                         {{ $noticia->descripcion }}
-                    </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Imagen de la noticia a la derecha -->
+            <!-- Imagen -->
             @if ($noticia->imagen)
-                <div class="flex-shrink-0">
-                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="w-[500px] h-auto rounded-lg shadow-md">
+            <div class="lg:w-1/2 flex-shrink-0">
+                <div class="rounded-xl overflow-hidden shadow-lg">
+                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia"
+                        class="w-full h-auto object-cover transition-transform duration-300 hover:scale-105">
                 </div>
+            </div>
             @endif
         </div>
 
-        <!-- Opciones de eliminar y editar -->
-        <div class="flex justify-center gap-7 mt-4 mb-5">
-            @can('eliminar noticias')
-            <div>
-                <!-- Formulario de eliminación con confirmación de SweetAlert -->
-                <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" class="text-center" onsubmit="confirmarEliminar(this)">
+        <!-- Acciones -->
+        <div class="px-6 pb-6">
+            <!-- Botones de administración -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6">
+                @can('eliminar noticias')
+                <form action="{{ route('noticias.destroy', $noticia->id) }}" method="POST" onsubmit="confirmarEliminar(this)">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class=" py-3 px-6 border text-lg rounded  bg-red-400 hover:bg-red-300 w-[300px] h-[100px] uppercase font-[Poppins]">
+                    <button type="submit"
+                        class="flex items-center justify-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
                         Eliminar Noticia
                     </button>
                 </form>
-            </div>
-            @endcan
-            @can('editar noticias')
-                <!-- Botón de editar -->
-                <div class="flex justify-center items-center text-center px-6 py-3 border bg-blue-400 hover:bg-blue-300 w-[300px] h-[100px] uppercase font-[Poppins]">
-                    <a href="{{ route('noticias.edit.get', $noticia->id) }}" class=" text-lg rounded">
-                        Editar noticia
-                    </a>
-                </div>
-            @endcan
-        </div>
+                @endcan
 
-        <!-- Botón de volver -->
-        <div class=" flex justify-center text-center px-6 py-4 border mx-auto mb-2 bg-gray-200 hover:bg-gray-300 w-[200px] uppercase">
-            <a href="{{ route('main') }}" class="w-full text-lg rounded font-[Poppins]">
-                Volver
-            </a>
+                @can('editar noticias')
+                <a href="{{ route('noticias.edit.get', $noticia->id) }}"
+                    class="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300 w-full sm:w-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Editar Noticia
+                </a>
+                @endcan
+            </div>
+
+            <!-- Botón de volver -->
+            <div class="text-center">
+                <a href="{{ route('main') }}"
+                    class="inline-flex items-center px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Volver al Inicio
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -82,7 +102,7 @@
             cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit();  // Envía el formulario si el usuario confirma
+                form.submit();
             }
         });
     }

@@ -17,90 +17,74 @@
     <article class="flex-1 py-6 px-24 overflow-y-auto" id="main">
         <!-- Botón para crear una noticia, visible solo si el usuario tiene permiso -->
         @can('crear noticias')
-        <div class="mb-4  bg-blue-600 hover:bg-blue-700 w-[200px] h-[50px] py-2 px-4 rounded-md hover:border-2 hover:border-black ">
-            <a href="{{ route('noticias.create.get') }}" class=" text-white  text-xl text-center font-[Poppins]">
+        <div class="mb-4 w-[200px] h-[50px]">
+            <a href="{{ route('noticias.create.get') }}"
+                class="flex items-center justify-center w-full h-full bg-blue-600 hover:bg-blue-700 
+                text-white text-xl font-[Poppins] rounded-md transition-all duration-200
+                hover:shadow-md hover:translate-y-[-2px] border-2 border-transparent 
+                hover:border-blue-400">
                 Crear Noticia
             </a>
         </div>
         @endcan
-        <!-- Lista de Noticias -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-[Inter] mt-4">
+
+        <!-- Noticias -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             @foreach ($noticias as $noticia)
-            <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-                <h3 class="text-2xl font-bold text-gray-800 uppercase">{{ $noticia->titulo }}</h3>
-                <p class="text-gray-600 break-words mt-2 mb-2">{{ Str::limit($noticia->descripcion, 100) }}</p>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <!-- Contenido de la noticia -->
+                <div class="p-5">
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-2">
+                        {{$noticia->genero->genero}}
+                    </span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $noticia->titulo }}</h3>
+                    <div class="h-[80px]">
+                        <p class="text-gray-600 mb-4 break-words overflow-hidden">
+                            {{ Str::limit($noticia->descripcion, 100) }}
+                        </p>
+                    </div>
+                    <!-- Imagen -->
+                    <div class="h-[300px] mb-4 rounded-lg overflow-hidden">
+                        <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+                    </div>
 
-                <!-- Imagen centrada -->
-                <div class="flex justify-center items-center mt-4">
-                    <img src="{{ Storage::url($noticia->imagen) }}" alt="Imagen de noticia" class="max-w-xs min-w-[200px] max-h-48 min-h-[150px] object-contain">
-                </div>
+                    <!-- Acciones -->
+                    <div class="flex items-center justify-between border-t pt-4">
+                        <a href="{{ route('noticias.show', $noticia->id) }}"
+                            class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                            Leer más
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
 
-                <br>
-                <a href="{{ route('noticias.show', $noticia->id) }}" class="text-blue-600 hover:text-blue-800 text-left px-6">Leer más</a>
+                        <!-- Like Section -->
+                        <div class="flex items-center space-x-2">
+                            @auth
+                            @if($noticia->users->contains(Auth::user()->id))
+                            <form action="{{ route('noticias.unlike', $noticia->id) }}" method="POST" onsubmit="confirmarUnlike(event, this)">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @else
+                            <form action="{{ route('noticias.like', $noticia->id) }}" method="POST" onsubmit="confirmarLike(event, this)">
+                                @csrf
+                                <button type="submit" class="text-gray-400 hover:text-red-500 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                    </svg>
+                                </button>
+                            </form>
+                            @endif
+                            @endauth
 
-                <!-- Like / Unlike -->
-                <div class="flex space-x-4">
-                    @auth
-                    <script>
-                        function confirmarLike(event, form) {
-                            event.preventDefault();
-                            Swal.fire({
-                                title: "¿Te gusta esta noticia?",
-                                icon: "question",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "Sí",
-                                cancelButtonText: "No"
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    form.submit();
-                                }
-                            });
-                        }
-
-                        function confirmarUnlike(event, form) {
-                            event.preventDefault();
-                            Swal.fire({
-                                title: "¿Quieres quitar el Like?",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#d33",
-                                cancelButtonColor: "#3085d6",
-                                confirmButtonText: "Sí",
-                                cancelButtonText: "No"
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    form.submit();
-                                }
-                            });
-                        }
-                    </script>
-
-                    @if($noticia->users->contains(Auth::user()->id))
-                    <form action="{{ route('noticias.unlike', $noticia->id) }}" method="POST" onsubmit="confirmarUnlike(event, this)">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="w-full py-3 px-6 border bg-red-500 text-white rounded mt-4 hover:bg-red-600 font-[Poppins] hover:border-black">
-                            ❌ Quitar Like
-                        </button>
-                    </form>
-                    @else
-                    <form action="{{ route('noticias.like', $noticia->id) }}" method="POST" onsubmit="confirmarLike(event, this)">
-                        @csrf
-                        <button type="submit" class="w-full py-3 px-6 border bg-blue-500 text-white rounded mt-4 hover:bg-blue-600 font-[Poppins] hover:border-black">
-                            👍 Me gusta
-                        </button>
-                    </form>
-                    @endif
-                    @endauth
-
-                    <!-- Contador de likes -->
-                    <div class="flex items-center space-x-2 mt-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21l-1-1c-5.67-5.69-8-8.49-8-12.36C3 4.4 4.79 2 6.88 2c1.69 0 3.32.81 4.12 2.23C11.3 4.81 12 6 12 6s.7-1.19 1-1.77C14.8 2.81 16.43 2 18.12 2 20.21 2 22 4.4 22 7.64c0 3.87-2.33 6.67-8 12.36l-1 1z" />
-                        </svg>
-                        <span class="text-gray-700 font-medium">{{ $noticia->users->count() }}</span>
+                            <span class="text-gray-700 font-medium">{{ $noticia->users->count() }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,13 +98,23 @@
         <!-- Crear género y ver lista usuarios -->
         <div class="flex flex-col justify-center items-center space-y-4 mb-4 mx-auto">
 
+            @can('ver usuarios')
+            <div class=" mt-4 text-center bg-blue-600 hover:bg-blue-700 w-[270px] h-[auto] py-4 px-4 rounded-md">
+                <a href="{{ route('users.show') }}" class="text-white text-xl text-center font-[Poppins]">
+                    Ver todos los lectores
+                </a>
+            </div>
+            @endcan
+
             @can('crear genero')
-            <div class="text-center bg-blue-600 hover:bg-blue-700 w-[270px] h-[auto] py-4 px-4 rounded-md">
-                <button onclick="toggleForm('crear-genero-form')" class="w-full text-white text-xl font-[Poppins]">
+            <div class="text-center bg-blue-600 hover:bg-blue-700 w-[270px] h-[auto] py-4 px-4 rounded-md 
+            transition-colors duration-300 ease-in-out 
+            hover:shadow-lg hover:border-b-4 hover:border-blue-500">
+                <button onclick="toggleForm('crear-genero-form')" class="w-full text-white text-xl font-[Poppins] ">
                     Añadir Género
                 </button>
                 <div id="crear-genero-form" class="mt-2 hidden">
-                    <form method="POST" action="{{ route('generos.store') }}" onsubmit="confirmarGenero(event, this)"  class="space-y-3" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('generos.store') }}" onsubmit="confirmarGenero(event, this)" class="space-y-3" enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                         <div class="p-3 bg-red-100 text-red-700 rounded-md text-sm">
@@ -133,35 +127,30 @@
                         </div>
                         @endif
                         <input type="text" id="genero" name="genero" class="w-full px-2 py-1 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-sm">
-                        <button type="submit"  class="w-full bg-gray-800 text-white py-1 px-3 rounded-md hover:bg-gray-700 focus:outline-none text-sm">Crear</button>
+                        <button type="submit" class="w-full bg-gray-800 text-white py-1 px-3 rounded-md hover:bg-gray-700 focus:outline-none text-sm">Crear</button>
                     </form>
                     <script>
-                            function confirmarGenero(event, form) {
-                                event.preventDefault();
-                                Swal.fire({
-                                    title: "¿Estas seguro de crear el género?",
-                                    icon: "question",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
-                                    confirmButtonText: "Sí",
-                                    cancelButtonText: "No"
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        form.submit();
-                                    }})};
-                        </script>
+                        function confirmarGenero(event, form) {
+                            event.preventDefault();
+                            Swal.fire({
+                                title: "¿Estas seguro de crear el género?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Sí",
+                                cancelButtonText: "No"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    form.submit();
+                                }
+                            })
+                        };
+                    </script>
                 </div>
             </div>
             @endcan
 
-            @can('ver usuarios')
-            <div class="text-center bg-blue-600 hover:bg-blue-700 w-[270px] h-[auto] py-4 px-4 rounded-md">
-                <a href="{{ route('users.show') }}" class="text-white text-xl text-center font-[Poppins]">
-                    Ver todos los lectores
-                </a>
-            </div>
-            @endcan
         </div>
     </article>
 </div>

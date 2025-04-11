@@ -2,8 +2,8 @@
 
 @section('content')
 <!-- Contenedor principal para los detalles de los usuarios -->
-<div class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold mb-4 font-[Roboto]">Detalles de los Usuarios</h2> <!-- Título principal -->
+<div class="container mx-auto p-12">
+    <h2 class="text-4xl font-bold mb-4 font-[Roboto]">Detalles de los Usuarios</h2> <!-- Título principal -->
     <input type="text" id="busqueda" placeholder="Busca por nombre" class="border-2 border-gray-300 p-2">
     <button id="botonBuscar" class="bg-blue-500 text-white p-2 font-[Poppins]">Buscar</button>
     <br><br>
@@ -67,18 +67,26 @@
         </table>
     </div>
 
-    <div class="flex gap-8 mt-4">
+    <div class="flex justify-center items-center gap-8 mt-4">
         <!-- Formulario para redirigir al registro de nuevos usuarios -->
         <form action="{{ route('auth.register.get') }}" method="get">
             <!-- Botón para registrar nuevos usuarios -->
             <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 mt-2 font-[Poppins] h-[50px] w-[200px]">
-                Regístrar usuarios
+                Registrar usuarios
             </button>
         </form>
-        <a href="{{ route('main') }}" class="bg-blue-600 mt-2 w-[200px] text-white py-2 px-4 rounded-md hover:bg-blue-700 font-[Poppins] h-[50px] inline-flex items-center justify-center">
-            Volver atrás
-        </a>
+
+        <div class="text-center">
+            <a href="{{ route('main') }}"
+                class="inline-flex items-center justify-center px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition-colors duration-300 h-[50px] w-[200px]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Volver al Inicio
+            </a>
+        </div>
     </div>
+
 </div>
 
 <script>
