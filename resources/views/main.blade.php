@@ -5,7 +5,7 @@
     <!-- Barra lateral siempre visible en estado colapsado -->
     <aside id="mySidebar" class="bg-gray-800 h-full text-white w-16 px-2 py-7 transition-all duration-300 overflow-hidden">
         <!-- Botón siempre visible dentro del sidebar -->
-        <button id="toggle-sidebar" class=" bg-teal-600 text-white p-2 rounded-md z-50" onclick="toggleSidebar()">&#9776;</button>
+        <button id="toggle-sidebar" class=" bg-teal-600 text-white w-[30px] h-[30px] ml-2 rounded-md z-50" onclick="toggleSidebar()">&#9776;</button>
         <br> <br>
         <!-- Contenido de la barra lateral (Oculto inicialmente) -->
         <div id="sidebar-content" class="hidden opacity-0 transition-opacity duration-300">
@@ -107,12 +107,11 @@
             @endcan
 
             @can('crear genero')
-            <div class="text-center bg-blue-600 hover:bg-blue-700 w-[270px] h-[auto] py-4 px-4 rounded-md 
-            transition-colors duration-300 ease-in-out 
-            hover:shadow-lg hover:border-b-4 hover:border-blue-500">
-                <button onclick="toggleForm('crear-genero-form')" class="w-full text-white text-xl font-[Poppins] ">
-                    Añadir Género
-                </button>
+            <div class="w-[270px] bg-blue-600 text-center text-white px-4 py-4 rounded-md">
+                <button onclick="toggleForm('crear-genero-form')" class="w-full text-white text-xl font-[Poppins] py-2 rounded-md hover:scale-105 transition-all duration-300 ease-in-out">
+                Añadir Género
+            </button>
+            
                 <div id="crear-genero-form" class="mt-2 hidden">
                     <form method="POST" action="{{ route('generos.store') }}" onsubmit="confirmarGenero(event, this)" class="space-y-3" enctype="multipart/form-data">
                         @csrf

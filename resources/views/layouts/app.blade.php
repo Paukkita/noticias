@@ -26,7 +26,7 @@
         </h1>
 
         <nav>
-            <ul class="flex space-x-8 text-xl">
+            <ul class="flex space-x-8 text-lg">
                 @auth
                 @if (Auth::user()->hasRole('admin'))
                 <li>
