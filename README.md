@@ -56,64 +56,71 @@ Actualmente en desarrollo, falta mejorar la estética y corregir algunos errores
 ## 🔑 Vista de Registro de Usuario
 La vista de registro permite a los nuevos usuarios crear una cuenta. Deben completar un formulario con sus datos básicos para poder registrarse.
 
-![Vista de registro de usuario](https://github.com/user-attachments/assets/ba5a1952-bdfb-4fc9-ad04-fe304579c57d)
+![Vista de registro de usuario](![image](https://github.com/user-attachments/assets/126f1f5e-4049-495d-9850-17e85041ea52)
+
 
 ## 🔐 Vista de Login de Usuario
 Los usuarios existentes pueden iniciar sesión proporcionando su nombre de usuario y contraseña. Esta vista garantiza un acceso seguro a la plataforma.
 
-![Vista de login de usuario](https://github.com/user-attachments/assets/aa20fd43-d2b4-423b-b27d-e13e54c96d95)
+![Vista de login de usuario](![image](https://github.com/user-attachments/assets/3570556f-03f5-45d7-980d-4e1a624a1e6d)
+
 
 ## ⚠️ Vista de Errores de Validación
 Si los datos proporcionados durante el registro o el login no son correctos, se muestran los errores correspondientes para corregir la información.
 
-![Vista de errores de validación](https://github.com/user-attachments/assets/91902f2f-2047-43c8-b1d6-75870e0e319b)
-
-## 📰 Vista de Noticias sin Iniciar Sesión
-Los usuarios no autenticados pueden ver una lista de noticias, pero tienen un acceso limitado en comparación con los usuarios registrados.
-
-![Vista de noticias sin loggear](https://github.com/user-attachments/assets/4c33973b-62e1-44cb-9ee5-0a9736b39857)
+![Vista de errores de validación](![image](https://github.com/user-attachments/assets/51bf80a7-d0c6-416a-b660-5a8ee7b594de)
 
 
 ## 📝 Vista de Noticias como Admin
 Los administradores (periodistas) tienen un acceso completo para gestionar las noticias. Pueden ver todas las publicaciones creadas y realizar acciones como crear, editar o eliminar noticias.
 
-![Vista de noticias como admin](https://github.com/user-attachments/assets/9bb744b9-56d5-4b1d-86ad-e4e0ba304a4d)
+![Vista de noticias como admin](![image](https://github.com/user-attachments/assets/bb38dcd9-ea00-468b-8ac7-f27b53a14f52)
+
+![image](https://github.com/user-attachments/assets/c7bd9c27-f3e8-42c1-a3a7-fbfcb14d4720)
+
 
 ## 📝 Vista de Noticias como Usuario
 Los usuarios tienen un acceso reducido para observar las noticais. Pueden ver todas las publicaciones creadas y dar me gusta o quitarlos.
 
-![Vista de noticia como usuario](https://github.com/user-attachments/assets/971ddd35-ed17-4e29-833e-04795a785fd0)
+![Vista de noticia como usuario](![image](https://github.com/user-attachments/assets/4c48d353-38cb-4f6b-a1b5-fd2f51cabd18)
+)
 
 
 ## 👍 Vista de Usuario con "Me Gusta"
 Los usuarios pueden interactuar con las noticias dando "me gusta" a sus publicaciones favoritas. Esta vista muestra las noticias que un usuario ha marcado como favoritas.
 
-![Vista de usuario con me gusta](https://github.com/user-attachments/assets/d1e401e3-7f41-41cd-8499-8fedbe5e1284)
+![Vista de usuario con me gusta](![image](https://github.com/user-attachments/assets/0059740d-4241-41de-b00d-e55152286e01)
+)
 
 ## 📰 Vista de Noticia Individual
 Cada noticia tiene su propia página detallada donde se puede leer la publicación completa y ver la información adicional de la misma.
 
-![Vista de noticia individual](https://github.com/user-attachments/assets/d0d66f63-a749-4ee6-8b43-2425266c5ea2)
+![Vista de noticia individual](![image](https://github.com/user-attachments/assets/451a3d69-aa23-4cd3-9998-3a003e3a504b)
+)
 
-## ✏️ Vista de Edición de una Noticia
+## ✏️ Vista de Edición de una Noticia, borrado y regreso al inicio (Admin)
 El administrador puede editar cualquier noticia publicada. Esta vista permite modificar el contenido, título, género, etc., de una noticia existente.
 
-![Vista de edición de una noticia](https://github.com/user-attachments/assets/6e5f63f2-c407-4473-bb86-9f503046dc21)
+![Vista de edición de una noticia](![image](https://github.com/user-attachments/assets/91f63bda-150e-40be-9ec3-2fd8a85ec3d9)
+)
 
 ## 👥 Vista de Todos los Usuarios
 Como administrador, se puede acceder a una lista completa de los usuarios registrados. Esta vista muestra los detalles básicos de cada usuario.
 
-![Vista de todos los usuarios](https://github.com/user-attachments/assets/f4b53cc6-be61-4683-837c-3e97ec180b1a)
+![Vista de todos los usuarios](![image](https://github.com/user-attachments/assets/87a4b667-f75a-45a4-a2d1-689aa78fb42b)
+)
 
 ## ✏️ Vista de Edición de Usuario
 El administrador tiene la capacidad de editar la información de los usuarios registrados, como sus datos personales y de contacto.
 
-![Vista de edición de usuario](https://github.com/user-attachments/assets/12cee33e-f9cc-4517-aa39-bbf86304d48b)
+![Vista de edición de usuario](![image](https://github.com/user-attachments/assets/c7aff6ea-b41c-43ab-a56d-cc43433897fc)
+)
 
 ## 👤 Vista de Perfil de Usuario
 Los usuarios registrados pueden ver y editar su propio perfil. Esta vista permite modificar sus datos personales y gestionar sus preferencias.
 
-![Vista de perfil de usuario](https://github.com/user-attachments/assets/c205deb2-d7e4-43c2-9c09-31d46c8fc82e)
+![Vista de perfil de usuario](![image](https://github.com/user-attachments/assets/d8021b08-3596-4723-8e1b-cbad42f4d9d0)
+)
 
 
 ## Contribución
