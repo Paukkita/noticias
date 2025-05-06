@@ -6,8 +6,6 @@
 
         {{-- Incluir el formulario de login --}}
         <x-form />
-        <p class="text-sm text-gray-600 mt-4 text-center">
-                ¿Ya tienes cuenta? <a href="{{ route('auth.login.get') }}" class="hover:text-blue-400">Regístrate aquí</a> 
-        </p>
+        
     </div>
 @endsection
