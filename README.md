@@ -21,8 +21,6 @@ Puedes acceder al proyecto en línea en el siguiente enlace:
 ## Descripción
 Este proyecto es una plataforma de noticias donde los periodistas pueden crear, editar y eliminar publicaciones, gestionar géneros y ver qué lectores han dado "me gusta". Los lectores pueden registrarse, explorar noticias, dar "me gusta" y filtrar contenido por género, además de gestionar su perfil personal.
 
-Actualmente en desarrollo, falta mejorar la estética y corregir algunos errores del programa.
-
 ## 🌟 Características  
 - 📰 **Gestión de noticias**: Los periodistas pueden crear, editar y eliminar publicaciones fácilmente.
 - 👍 **Me gusta en noticias**: Los lectores pueden dar "me gusta" a las noticias que más les interesen.
